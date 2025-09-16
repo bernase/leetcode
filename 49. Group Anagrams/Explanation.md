@@ -63,11 +63,50 @@ Strings with the same counts belong to the same group.
 
 ---
 
-### Why `defaultdict(list)`?
+### Walkthrough
 
-- Normally, when using a Python dictionary, you must check if a key already exists before appending:
-  ```python
-  if key in res:
-      res[key].append(s)
-  else:
-      res[key] = [s]
+Take input: `["eat","tea","tan","ate","nat","bat"]`
+
+| String | Count Array (a→z)      | Key (tuple)                 | Group Updates          |
+|--------|------------------------|-----------------------------|------------------------|
+| "eat"  | [1,0,0,0,1,0,...,1,...]| (1,0,0,0,1,0,...,1,...)     | {"key1": ["eat"]}      |
+| "tea"  | same as "eat"          | same                        | {"key1": ["eat","tea"]}|
+| "tan"  | [1,0,0,0,0,0,...,1,...]| new key                     | {"key2": ["tan"]}      |
+| "ate"  | same as "eat"          | same                        | {"key1": ["eat","tea","ate"]}|
+| "nat"  | same as "tan"          | same                        | {"key2": ["tan","nat"]}|
+| "bat"  | [1,1,0,...,1,...]      | new key                     | {"key3": ["bat"]}      |
+
+Final result: `[["eat","tea","ate"], ["tan","nat"], ["bat"]]`
+
+---
+
+### Complexity Analysis
+
+- **Time Complexity:**  
+  For each string of length `k`, we count characters in `O(k)`.  
+  With `n` strings → **O(n * k)**.
+
+- **Space Complexity:**  
+  - Dictionary holds up to `n` keys.  
+  - Each key is a tuple of length 26 → `O(1)` space per key.  
+  - Total storage of all strings → **O(n * k)**.
+
+---
+
+### Python3
+
+```python
+from collections import defaultdict
+from typing import List
+
+class Solution:
+    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
+        res = defaultdict(list)  # mapping from char counts → list of anagrams
+
+        for s in strs:
+            count = [0] * 26
+            for c in s:
+                count[ord(c) - ord("a")] += 1
+            res[tuple(count)].append(s)
+
+        return list(res.values())
