@@ -118,7 +118,7 @@ Final result: `[["eat","tea","ate"], ["tan","nat"], ["bat"]]`
 	print(d)           # {'x': [1]}
 	```
 
--- **return list(res.values())**  
+- **return list(res.values())**  
 	-.values() → gives a dict_values view object in Python 3.
   	-It’s not JSON serializable and not exactly a list.
 	-Use list(res.values()) to convert it into a list.
