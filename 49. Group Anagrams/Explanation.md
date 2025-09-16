@@ -93,6 +93,58 @@ Final result: `[["eat","tea","ate"], ["tan","nat"], ["bat"]]`
 
 ---
 
+### Tips
+
+- **res = defaultdict(list)**  
+	#### What is `defaultdict`?
+
+	`defaultdict` is a special kind of dictionary from Python’s **collections** module.
+
+	A normal dictionary raises a **KeyError** if you try to access a key that doesn’t exist.
+
+	**Example with a normal dict:**
+
+	```python
+	d = {}
+	d["x"].append(1)   # ❌ KeyError, because "x" does not exist yet
+	```
+ 
+ 	**Example with defaultdict(list):**
+	```python
+	from collections import defaultdict
+ 
+	d = defaultdict(list)
+	d["x"].append(1)   # ✅ works fine
+	print(d)           # {'x': [1]}
+	```
+
+-- **return list(res.values())**  
+	-.values() → gives a dict_values view object in Python 3.
+  	-It’s not JSON serializable and not exactly a list.
+	-Use list(res.values()) to convert it into a list.
+
+- **tuple**  
+  - A **tuple** in Python is an *immutable* (unchangeable) sequence, similar to a list but with two key differences:
+    - Tuples are **immutable** → once created, their values cannot be modified.
+	- Tuples are **hashable** → this means they can be used as keys in a dictionary, unlike lists.
+
+ 	**Example: list vs tuple as dict keys**
+
+	```python
+	# Using a list as a dict key (❌ not allowed)
+	d = {}
+	key = [1, 2, 3]
+	d[key] = "value"    # ❌ TypeError: unhashable type: 'list'
+
+	# Using a tuple as a dict key (✅ works fine)
+	d = {}
+	key = (1, 2, 3)
+	d[key] = "value"    # ✅ Works
+	print(d)            # {(1, 2, 3): 'value'}
+	```
+
+---
+
 ### Python3
 
 ```python
