@@ -166,5 +166,3 @@ class Solution:
 
 - **Sliding Window**: best solution (O(n)), relies on positivity of `nums[i]`.  
 - **Prefix + Binary Search**: alternative (O(n log n)), good to practice prefix sums and binary search.  
-
-Both methods return the correct minimal subarray length.
