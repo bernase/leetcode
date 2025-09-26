@@ -5,7 +5,7 @@ tags:
     - Divide and Conquer
     - Sorting
     - Heap (Priority Queue)
-	- Quickselect
+    - Quickselect
 ---
 
 <!-- problem:start -->
